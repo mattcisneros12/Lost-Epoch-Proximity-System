@@ -1,0 +1,334 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lost Epoch | Proximity Monitor</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: system-ui, Arial, sans-serif;
+      background: #081619;
+      color: #e9f3f0;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 24px; }
+    main { max-width: 900px; margin: auto; }
+    header { margin-bottom: 26px; }
+    .eyebrow {
+      color: #69d5a5;
+      letter-spacing: 3px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    h1 { font-size: clamp(26px, 5vw, 44px); margin: 8px 0; }
+    p { color: #a3bcb7; line-height: 1.6; }
+    .panel {
+      background: #10272a;
+      border: 1px solid #28504b;
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 18px;
+    }
+    .topline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .pill {
+      border: 1px solid #4ba783;
+      color: #83ebbc;
+      padding: 7px 12px;
+      border-radius: 25px;
+      font-size: 12px;
+    }
+    .radar {
+      position: relative;
+      height: 330px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle, #163a36 0%, #0c1d20 75%);
+      border: 1px solid #28504b;
+      border-radius: 14px;
+      margin: 20px 0;
+    }
+    .ring {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border: 1px solid;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .whisper {
+      width: 30px; height: 30px;
+      border-color: #8fe8bb;
+      background: #8fe8bb18;
+    }
+    .normal {
+      width: 120px; height: 120px;
+      border-color: #6ebec6;
+      background: #6ebec610;
+    }
+    .shout {
+      width: 250px; height: 250px;
+      border-color: #e6b56c;
+      background: #e6b56c08;
+    }
+    .player {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 2;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+    .dot {
+      display: block;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      margin: 0 auto 5px;
+      border: 2px solid #fff;
+    }
+    #playerA { left: 50%; }
+    #playerA .dot { background: #67db9e; }
+    #playerB { left: 50%; top: 50%; }
+    #playerB .dot { background: #ffb768; }
+    #playerA .name { position: relative; top: -37px; }
+    #playerB .name { position: relative; top: 13px; }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .metric {
+      padding: 17px;
+      border-radius: 12px;
+      background: #091b1e;
+    }
+    .metric small { color: #92aaa5; }
+    .metric strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 25px;
+    }
+    label {
+      display: block;
+      margin: 15px 0 8px;
+      font-weight: 600;
+    }
+    input[type="range"] {
+      width: 100%;
+      accent-color: #70dba7;
+      cursor: pointer;
+    }
+    select {
+      width: 100%;
+      background: #081619;
+      color: white;
+      border: 1px solid #3a6560;
+      border-radius: 8px;
+      padding: 12px;
+    }
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      font-size: 12px;
+      color: #b7cfc8;
+      margin-top: 10px;
+    }
+    .key {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+    .meter {
+      background: #071518;
+      border-radius: 20px;
+      overflow: hidden;
+      height: 13px;
+      margin-top: 12px;
+    }
+    #volumeBar {
+      height: 100%;
+      background: #70dba7;
+      width: 0%;
+      transition: width .15s;
+    }
+    .note { font-size: 12px; }
+    @media (max-width: 500px) {
+      body { padding: 12px; }
+      .panel { padding: 15px; }
+      .radar { height: 280px; }
+      .metrics { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="eyebrow">LOST EPOCH // RESEARCH DIVISION</div>
+    <h1>Proximity Monitor</h1>
+    <p>
+      Experimental spatial communication dashboard
+      for Path of Titans community servers.
+    </p>
+  </header>
+
+  <section class="panel">
+    <div class="topline">
+      <strong>SPATIAL TRACKING</strong>
+      <span class="pill">SIMULATION MODE</span>
+    </div>
+
+    <div class="radar" aria-label="Top-down simulated proximity radar">
+      <div class="ring shout"></div>
+      <div class="ring normal"></div>
+      <div class="ring whisper"></div>
+
+      <div class="player" id="playerA">
+        <span class="dot"></span>
+        <span class="name">Utahraptor</span>
+      </div>
+
+      <div class="player" id="playerB">
+        <span class="dot"></span>
+        <span class="name">Achillobator</span>
+      </div>
+    </div>
+
+    <div class="legend">
+      <span><i class="key" style="background:#8fe8bb"></i>Whisper: 15 m</span>
+      <span><i class="key" style="background:#6ebec6"></i>Normal: 60 m</span>
+      <span><i class="key" style="background:#e6b56c"></i>Shout: 125 m</span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Communication Controls</h2>
+
+    <label for="distance">
+      Dinosaur separation: <span id="distanceValue">35</span> m
+    </label>
+    <input type="range" id="distance"
+      min="0" max="150" value="35" step="1">
+
+    <label for="voiceMode">Speaker voice mode</label>
+    <select id="voiceMode">
+      <option value="whisper">Whisper — 15 m</option>
+      <option value="normal" selected>Normal — 60 m</option>
+      <option value="shout">Shout — 125 m</option>
+    </select>
+
+    <div class="metrics" style="margin-top:20px">
+      <div class="metric">
+        <small>Available speaking ranges</small>
+        <strong id="rangeStatus">NORMAL / SHOUT</strong>
+      </div>
+      <div class="metric">
+        <small>Selected voice audibility</small>
+        <strong id="voiceStatus">AUDIBLE</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="topline">
+      <h2>Experimental Audio Model</h2>
+      <span class="pill">NO LIVE AUDIO</span>
+    </div>
+    <p>
+      Illustrative volume attenuation for the selected
+      speaking mode. This is a mathematical preview,
+      not actual microphone transmission.
+    </p>
+    <div class="topline">
+      <span>Relative modeled volume</span>
+      <strong id="volumeValue">0%</strong>
+    </div>
+    <div class="meter">
+      <div id="volumeBar"></div>
+    </div>
+  </section>
+
+  <p class="note">
+    Research prototype. Uses synthetic player positioning,
+    experimental communication ranges, and an assumed
+    100 world units per meter conversion. No credentials,
+    microphone capture, or game-server connection required.
+    Not affiliated with Alderon Games.
+  </p>
+</main>
+
+<script>
+  const ranges = {
+    whisper: 15,
+    normal: 60,
+    shout: 125
+  };
+
+  const distanceInput = document.getElementById("distance");
+  const voiceModeInput = document.getElementById("voiceMode");
+
+  function updateDashboard() {
+    const distance = Number(distanceInput.value);
+    const mode = voiceModeInput.value;
+    const maxRange = ranges[mode];
+
+    document.getElementById("distanceValue").textContent =
+      distance;
+
+    let status;
+    if (distance <= ranges.whisper) {
+      status = "WHISPER / NORMAL / SHOUT";
+    } else if (distance <= ranges.normal) {
+      status = "NORMAL / SHOUT";
+    } else if (distance <= ranges.shout) {
+      status = "SHOUT ONLY";
+    } else {
+      status = "OUT OF RANGE";
+    }
+
+    document.getElementById("rangeStatus").textContent =
+      status;
+
+    const audible = distance <= maxRange;
+
+    document.getElementById("voiceStatus").textContent =
+      audible ? "AUDIBLE" : "INAUDIBLE";
+
+    // Hypothetical fade curve.
+    // At the exact cutoff the modeled gain reaches zero.
+    const normalized = Math.max(0, 1 - distance / maxRange);
+    const volume = Math.pow(normalized, 1.5);
+    const percentage = Math.round(volume * 100);
+
+    document.getElementById("volumeValue").textContent =
+      percentage + "%";
+
+    document.getElementById("volumeBar").style.width =
+      percentage + "%";
+
+    // Radar scale: 125 meters = 125 pixels.
+    // The radar is illustrative, showing one-dimensional
+    // relative movement without any map geometry.
+    const playerB = document.getElementById("playerB");
+    playerB.style.left = `calc(50% + ${distance}px)`;
+  }
+
+  distanceInput.addEventListener("input", updateDashboard);
+  voiceModeInput.addEventListener("change", updateDashboard);
+
+  updateDashboard();
+</script>
+</body>
+</html>
