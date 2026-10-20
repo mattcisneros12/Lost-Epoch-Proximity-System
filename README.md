@@ -1,5 +1,34 @@
 # Lost Epoch — Proximity Communication System
 
+## About Lost Epoch
+
+**Lost Epoch** is an independently operated, cross-platform *Path of Titans* community server running on the **Riparia** map.
+
+The server supports PC and console players, features a curated collection of prehistoric creature mods, and emphasizes player-driven survival, exploration, cooperation, and competitive gameplay.
+
+The Lost Epoch Proximity Communication System is an independent research and development project created to explore new communication mechanics for the server.
+
+Our long-term objective is to investigate proximity-based voice communication that makes player interactions more immersive, including distance-dependent speech, whispering, shouting, and environmental sound effects.
+
+### Try Our Interactive Demonstration
+
+**[Launch the Lost Epoch Spatial Communication Laboratory](https://mattcisneros12.github.io/Lost-Epoch-Proximity-System/dashboard/)**
+
+This browser-based simulator demonstrates how dinosaur positioning, vocalization ranges, and proposed human communication mechanics could interact.
+
+It uses synthetic positions and does not require access to our private game server.
+
+### Project Resources
+
+- **Community server:** Lost Epoch
+- **Game:** Path of Titans
+- **Map:** Riparia
+- **Development repository:** [Lost Epoch Proximity System](https://github.com/mattcisneros12/Lost-Epoch-Proximity-System)
+- **Interactive demonstration:** [Open Simulator](https://mattcisneros12.github.io/Lost-Epoch-Proximity-System/dashboard/)
+- **Community Discord:** [Join Lost Epoch](https://discord.gg/y3nas9bTS)
+
+*Lost Epoch and this research project are independently operated and are not affiliated with or endorsed by Alderon Games.*
+
 ### Experimental development project for Path of Titans
 
 Lost Epoch is a cross-platform Path of Titans community server. This project explores proximity-based player communication, environmental audio, and how spatial information from Alderon's dedicated server API could support new gameplay mechanics.
