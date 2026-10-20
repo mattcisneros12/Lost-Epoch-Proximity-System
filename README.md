@@ -1,87 +1,122 @@
 # Lost Epoch — Proximity Communication System
 
+**An experimental spatial communication project for Path of Titans**
+
 ## About Lost Epoch
 
 **Lost Epoch** is an independently operated, cross-platform *Path of Titans* community server running on the **Riparia** map.
 
-The server supports PC and console players, features a curated collection of prehistoric creature mods, and emphasizes player-driven survival, exploration, cooperation, and competitive gameplay.
+The server features a curated collection of prehistoric creature mods and emphasizes player-driven survival, exploration, cooperation, and competitive gameplay.
 
-The Lost Epoch Proximity Communication System is an independent research and development project created to explore new communication mechanics for the server.
+The **Lost Epoch Proximity Communication System** is an independent research project exploring how distance-based voice communication and environmental audio could create new gameplay opportunities.
 
-Our long-term objective is to investigate proximity-based voice communication that makes player interactions more immersive, including distance-dependent speech, whispering, shouting, and environmental sound effects.
+## Interactive Demonstration
 
-### Try Our Interactive Demonstration
+### [Launch the Lost Epoch Spatial Communication Laboratory](https://mattcisneros12.github.io/Lost-Epoch-Proximity-System/dashboard/)
 
-**[Launch the Lost Epoch Spatial Communication Laboratory](https://mattcisneros12.github.io/Lost-Epoch-Proximity-System/dashboard/)**
+Our publicly accessible browser simulation demonstrates:
 
-This browser-based simulator demonstrates how dinosaur positioning, vocalization ranges, and proposed human communication mechanics could interact.
+- Independent movement of two dinosaurs.
+- Real-time distance calculations.
+- Comparison of dinosaur vocalization ranges and proposed human speaking ranges.
+- Whispering, normal speech, and shouting mechanics.
+- Directional source selection and modeled volume attenuation.
 
-It uses synthetic positions and does not require access to our private game server.
-
-### Project Resources
-
-- **Community server:** Lost Epoch
-- **Game:** Path of Titans
-- **Map:** Riparia
-- **Development repository:** [Lost Epoch Proximity System](https://github.com/mattcisneros12/Lost-Epoch-Proximity-System)
-- **Interactive demonstration:** [Open Simulator](https://mattcisneros12.github.io/Lost-Epoch-Proximity-System/dashboard/)
-- **Community Discord:** [Join Lost Epoch](https://discord.gg/y3nas9bTS)
-
-*Lost Epoch and this research project are independently operated and are not affiliated with or endorsed by Alderon Games.*
-
-### Experimental development project for Path of Titans
-
-Lost Epoch is a cross-platform Path of Titans community server. This project explores proximity-based player communication, environmental audio, and how spatial information from Alderon's dedicated server API could support new gameplay mechanics.
+**This is an interactive simulation, not a functioning voice-chat application.** It uses synthetic coordinates and does not require access to the Lost Epoch game server.
 
 ## Project Objective
 
-Develop an optional proximity communication system in which players can hear nearby conversations based on their dinosaurs' positions.
+Our long-term goal is to investigate an optional proximity communication system where players can hear conversations based on their dinosaurs' positions.
 
-The proposed system includes:
+Proposed features include:
 
-- **Spatial communication:** Voices become quieter and sound more distant as players move apart.
-- **Whispering and shouting:** Different speaking modes create opportunities for stealth, coordination, and deception.
-- **Environmental audio:** Explore underwater muffling, cave acoustics, and map-aware sound effects.
-- **Cross-platform compatibility:** Investigate supported integration options for PC and PlayStation 5.
+- **Spatial communication:** Voices become quieter and perceptually more distant as players separate.
+- **Whispering and shouting:** Different speaking ranges encourage stealth, coordination, deception, and strategic gameplay.
+- **Environmental audio:** Explore underwater muffling, cave-specific sound profiles, and map-aware acoustic effects.
+- **Cross-platform support:** Investigate officially supported integration options for PC and PlayStation 5.
 
-## Verified Experiments
+## Verified Development Work
 
-Initial tests were conducted using two PlayStation 5 clients connected to the Lost Epoch dedicated server.
+Initial experiments used two PlayStation 5 consoles connected to the Lost Epoch dedicated server.
 
-The following functionality was successfully demonstrated:
+### Live proximity detection
 
-- Authenticated communication with Alderon's dedicated server REST API.
-- Retrieval of player names, species, and three-dimensional world coordinates.
-- Repeated position sampling at approximately two requests per second.
-- Calculation of live distance between two connected players.
-- Detection of whether two players fall within a configurable proximity radius.
+Successfully demonstrated:
 
-Additional in-game listening experiments explored dinosaur vocalization attenuation, environmental sound behavior, and differences between vocalizations.
+- Authenticated requests to Alderon's dedicated server REST API.
+- Retrieval of player identities, species, and three-dimensional positions.
+- Repeated position sampling approximately twice per second.
+- Real-time calculation of distance between two players.
+- Correct proximity classification across configurable whisper, normal, and shout boundaries.
 
-These observations inform the proposed audio design but do not establish how the game's underlying audio systems are implemented.
+### Standalone simulation
+
+Developed and tested a PowerShell simulation requiring no game server or authentication credentials.
+
+All 16 recorded simulation samples produced the expected proximity classifications.
+
+### Acoustic research
+
+Conducted preliminary in-game listening experiments investigating dinosaur vocalization ranges, perceived distance, cave audio behavior, and underwater muffling.
+
+These observations informed our design decisions but do not establish the game's underlying audio implementation.
+
+### Interactive dashboard
+
+Developed and published a browser-based demonstration that compares proposed speech behavior with preliminary dinosaur vocalization observations.
+
+The dashboard supports independent movement of two simulated dinosaurs and dynamically scales the visualization according to the selected sound range.
+
+## Project Files
+
+| File | Purpose |
+|---|---|
+| `scripts/ProximityDetector.ps1` | Live server API proximity detector |
+| `scripts/ProximitySimulation.ps1` | Standalone synthetic movement simulation |
+| `dashboard/index.html` | Interactive browser-based acoustic simulator |
+| `docs/Field-Test-Results.md` | Recorded PS5 proximity experiments |
+| `docs/Simulation-Test-Results.md` | Standalone simulation test results |
+| `docs/Acoustic-Research.md` | Preliminary dinosaur sound observations |
 
 ## Current Development Status
 
-**Completed:** Proof-of-concept player tracking and proximity calculations using PowerShell.
+**Completed and tested:**
+- Live PS5 player-position retrieval and proximity calculations.
+- Configurable speaking-range classification.
+- Standalone simulation.
+- Interactive browser demonstration.
+- Initial field-test and acoustic research documentation.
 
-**In development:** Reusable proximity detector, configurable speaking ranges, and technical documentation.
+**Planned or under investigation:**
+- Additional automated testing and audio experiments.
+- Working microphone-to-microphone voice prototype.
+- Environmental audio processing.
+- Official Path of Titans DevKit capabilities.
+- Native PS5 microphone access, voice networking, and in-game playback.
 
-**Planned:** Standalone voice prototype, environmental audio profiles, and further investigation of official Path of Titans modding capabilities.
-
-Native PS5 microphone capture, voice transmission, and in-game playback have not yet been demonstrated. Their feasibility depends on supported gameand platform interfaces.
+**Important limitation:** Native PS5 voice integration has not been demonstrated. Its feasibility depends on the interfaces and permissions available through the game's approved modding system.
 
 ## Development Principles
 
 - Work within Alderon Games' official modding framework.
-- Protect player privacy and server authentication credentials.
-- Keep experiments separate from production server operations.
-- Distinguish verified functionality from proposed features.
-- Document implementation details and limitations transparently.
+- Protect server credentials and player privacy.
+- Separate experimental software from production server operations.
+- Clearly distinguish verified results from design concepts.
+- Document technical limitations and testing methods.
 
-## Project Scope
+## Community and Project Links
 
-This repository documents independent technical experiments involving a community server. It is not an official Alderon Games project or a completed Path of Titans mod.
+- **Community server:** Lost Epoch
+- **Game:** Path of Titans
+- **Map:** Riparia
+- **[Interactive simulator](https://mattcisneros12.github.io/Lost-Epoch-Proximity-System/dashboard/)**
+- **[Source code repository](https://github.com/mattcisneros12/Lost-Epoch-Proximity-System)**
+- **[Lost Epoch Discord](https://discord.gg/y3nas9bTS)**
 
 ## Next Milestone
 
-Publish a sanitized, reusable proximity-detection script with setup instructions and sample output.
+Investigate official Path of Titans modding capabilities and develop a standalone, proximity-aware microphone audio prototype.
+
+---
+
+*Lost Epoch and this research project are independently operated and are not affiliated with or endorsed by Alderon Games.*
