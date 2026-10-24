@@ -84,7 +84,7 @@ The API sampling interval was approximately half a second; end-to-end positional
 
 ## Next Steps
 
-1. Add repeatable simulation tests that do not require a live server.
+1. **Completed:** Developed the standalone simulation that does not require a live server (`scripts/ProximitySimulation.ps1`; see `docs/Simulation-Test-Results.md`).
 2. Validate coordinate scaling and test additional player combinations.
 3. Develop a standalone audio prototype.
 4. Investigate supported Path of Titans modding interfaces and console compatibility.
