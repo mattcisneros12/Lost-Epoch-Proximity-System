@@ -120,3 +120,27 @@ Investigate official Path of Titans modding capabilities and develop a standalon
 ---
 
 *Lost Epoch and this research project are independently operated and are not affiliated with or endorsed by Alderon Games.*
+
+## Automated regression tests
+
+Run from the repository root (Node.js 24 and Windows PowerShell 5.1 or PowerShell 7):
+
+```powershell
+powershell -NoProfile -File tests/ProximityDetector.Tests.ps1
+pwsh -NoProfile -File tests/ProximityDetector.Tests.ps1
+node tests/dashboard.test.cjs
+```
+
+The detector tests replace API requests with synthetic responses. They need no server,
+real API key, player data, or extra PowerShell modules. They cover invalid coordinates,
+valid zero and numeric-string coordinates, 3D distance, and inclusive speaking boundaries.
+Missing, blank, nonnumeric, boolean, collection, NaN, or infinite axes produce
+`Player location unavailable.` instead of a distance classification.
+
+The dashboard tests execute the shipped inline script with a minimal DOM substitute.
+They cover below/at/above all voice and vocalization ranges, both voice sources,
+source marker placement, control visibility, volume display, and reset. These are
+script/DOM regression checks, not browser rendering or live audio tests.
+`WITHIN RANGE` includes the exact boundary; modeled volume is 0% there and may
+round to 0% just inside it. This matches the detector's inclusive range rule.
+GitHub Actions runs these checks on Windows for pushes and pull requests.

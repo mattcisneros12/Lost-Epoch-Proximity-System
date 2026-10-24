@@ -48,6 +48,26 @@ param(
     [double]$UnitsPerMeter = 100
 )
 
+# Reject missing or malformed axes before PowerShell can coerce them to zero.
+function Test-PlayerLocation($location) {
+    if ($null -eq $location) { return $false }
+    foreach ($axis in @('x', 'y', 'z')) {
+        $value = $location.$axis
+        if ($null -eq $value -or $value -is [bool] -or
+            $value -is [System.Collections.IEnumerable] -and $value -isnot [string]) {
+            return $false
+        }
+        if ($value -is [string] -and [string]::IsNullOrWhiteSpace($value)) {
+            return $false
+        }
+        try { $coordinate = [double]$value } catch { return $false }
+        if ([double]::IsNaN($coordinate) -or [double]::IsInfinity($coordinate)) {
+            return $false
+        }
+    }
+    return $true
+}
+
 if ([string]::IsNullOrWhiteSpace($env:LOST_EPOCH_API_KEY)) {
     Write-Error "Missing LOST_EPOCH_API_KEY environment variable."
     exit 1
@@ -88,8 +108,8 @@ for ($i = 1; $i -le $Samples; $i++) {
         if ($null -eq $first -or $null -eq $second) {
             Write-Host "Waiting for both players..."
         }
-        elseif ($null -eq $first.location -or
-                $null -eq $second.location) {
+        elseif (-not (Test-PlayerLocation $first.location) -or
+                -not (Test-PlayerLocation $second.location)) {
             Write-Host "Player location unavailable."
         }
         else {
