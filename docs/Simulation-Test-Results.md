@@ -63,7 +63,7 @@ The script does not capture, transmit, filter, or reproduce microphone audio. It
 ## Next Development Milestones
 
 1. Add automated tests for exact distance boundaries and three-dimensional positioning.
-2. Create a visual demonstration of player movement and communication ranges.
+2. **Completed:** Created the visual demonstration of player movement and communication ranges (`dashboard/index.html`).
 3. Prototype microphone audio with distance-based volume attenuation.
 4. Investigate officially supported Path of Titans modding interfaces for native console integration.
 
