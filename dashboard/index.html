@@ -369,6 +369,9 @@
     This visualizes a proposed mathematical volume curve.
     It does not reproduce the original Path of Titans
     attenuation curve or play microphone audio.
+    The exact range boundary is included in WITHIN RANGE,
+    even though the modeled volume reaches 0% there.
+    Rounded volume can also display 0% just inside the boundary.
   </p>
 
   <div class="row">
@@ -456,7 +459,8 @@ function updateDashboard() {
     ? voiceRanges[voiceMode]
     : roarRanges[source];
 
-  const audible = distance <= range;
+  // Geometric range membership includes the boundary; it does not imply positive volume.
+  const withinRange = distance <= range;
 
   element("voiceControls").hidden =
     soundType !== "voice";
@@ -480,7 +484,7 @@ function updateDashboard() {
     range + " m";
 
   element("statusValue").textContent =
-    audible ? "WITHIN RANGE" : "OUT OF RANGE";
+    withinRange ? "WITHIN RANGE" : "OUT OF RANGE";
 
   // Demonstration-only volume model.
   // Not derived from in-game audio measurements.

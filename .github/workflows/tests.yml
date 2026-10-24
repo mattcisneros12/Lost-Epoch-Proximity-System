@@ -1,0 +1,20 @@
+name: Regression tests
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Detector (Windows PowerShell 5.1)
+        shell: powershell
+        run: ./tests/ProximityDetector.Tests.ps1
+      - name: Detector (PowerShell 7)
+        shell: pwsh
+        run: ./tests/ProximityDetector.Tests.ps1
+      - name: Dashboard boundaries
+        run: node tests/dashboard.test.cjs
